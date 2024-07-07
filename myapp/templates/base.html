@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px 20px;
+            color: white;
+        }
+        
+        .navbar-logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .navbar-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .navbar-links li {
+            display: inline;
+        }
+        
+        .navbar-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+        
+        .navbar-links a:hover {
+            color: #ddd;
+        }
+        
+        .navbar-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;  /* Ensure the link looks like a button */
+            transition: background-color 0.3s, color 0.3s;
+            display: inline-block;
+        }
+        
+        .login {
+            background-color: #555;
+            color: white;
+        }
+        
+        .signup {
+            background-color: #f90;
+            color: white;
+        }
+        
+        .btn:hover {
+            opacity: 0.8;
+        }
+
+        {% block style %}{% endblock style %}
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-logo">MyLogo</div>
+        <ul class="navbar-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+        <div class="navbar-buttons">
+            <a href="/login/" class="btn login">Login</a>
+            <a href="/signup/" class="btn signup">Sign Up</a>
+        </div>
+    </nav>
+
+        {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == "error" %}
+                {% comment %} Change message.tags to "danger" for Bootstrap alert class {% endcomment %}
+                {% with "danger" as alert_class %}
+                    <div class="alert alert-{{ alert_class }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endwith %}
+            {% else %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    
+
+    {% block content %}{% endblock content %}
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

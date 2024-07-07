@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block title %}Home Page{% endblock title %}
+
+{% block style %}
+<style>
+body {
+    background-color: #f0f2f5;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h2 {
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+h3 {
+    color: #555;
+    margin-bottom: 30px;
+}
+
+h3 u {
+    color: #007bff;
+}
+
+p {
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+footer {
+    margin-top: 30px;
+    color: #888;
+    font-size: 14px;
+}
+</style>
+{% endblock style %}
+
+{% block content %}
+<div class="container">
+    <h2>Welcome to the Home Page!</h2>
+    <h3>Username: <u>{{ fullname }}</u></h3>
+    <p>You are logged in.</p>
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+</div>
+<footer>
+    <p>Thank you for visiting our platform. Have a great day!</p>
+</footer>
+{% endblock content %}
